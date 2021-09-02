@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="placeholderTextColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="4vJ-x2-esL" kind="relationship" relationship="viewControllers" id="fzb-iv-XNW"/>
@@ -68,7 +68,7 @@
         <scene sceneID="Pfx-sh-mzO">
             <objects>
                 <navigationController id="cm2-pb-D8S" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="bell" catalog="system" id="A9M-F9-cfL"/>
+                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="A9M-F9-cfL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Amm-Zv-SzD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -118,7 +118,7 @@
         <scene sceneID="tv2-MV-dpN">
             <objects>
                 <navigationController id="Cqr-Fu-Odl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="camera" catalog="system" id="HL5-N3-dkk"/>
+                    <tabBarItem key="tabBarItem" title="" image="plus" catalog="system" id="HL5-N3-dkk"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KT9-WT-Wza">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -197,11 +197,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bell" catalog="system" width="128" height="124"/>
-        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

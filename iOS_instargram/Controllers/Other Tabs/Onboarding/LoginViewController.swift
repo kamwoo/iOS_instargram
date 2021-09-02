@@ -9,14 +9,14 @@ import UIKit
 import SafariServices
 
 struct Constants {
-    static let cornerRadius : CGFloat = 8.0
+    static let cornerRadius : CGFloat = 5.0
 }
 
 class LoginViewController: UIViewController {
     // MARK: -UI configure
     private let userNameEmailField: UITextField = {
        let field = UITextField()
-        field.placeholder = "아이디 또는 이메일을 입력해주세요"
+        field.placeholder = "아이디 또는 이메일"
         field.returnKeyType = .next
         field.leftViewMode = .always
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
     
     private let passwordField: UITextField = {
         let field = UITextField()
-         field.placeholder = "비밀번호를 입력해주세요"
+         field.placeholder = "비밀번호"
          field.returnKeyType = .continue
          field.leftViewMode = .always
          field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
     
     private let privacyButton : UIButton = {
         let button = UIButton()
-         button.setTitle("정보보안정책", for: .normal)
+         button.setTitle("개인정보정책", for: .normal)
          button.setTitleColor(.secondaryLabel, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
          return button
@@ -110,11 +110,38 @@ class LoginViewController: UIViewController {
             return
         }
         
+        var username: String?
+        var email: String?
+        
+        if usernameEmail.contains("@"), usernameEmail.contains("."){
+            // email
+            email = usernameEmail
+        }else{
+            // username
+            username = usernameEmail
+        }
+        
+        AuthManager.shared.loginUser(username: username, email: email, password: password){[weak self] result in
+            DispatchQueue.main.async {
+                if result {
+                    //logged in
+                    self?.dismiss(animated: true, completion: nil)
+                }else{
+                    //error
+                    let alert = UIAlertController(title: "login error",
+                                                  message: "로그인에 실패했습니다.",
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @objc private func didTapCreateAccountButton() {
         let vc = RegistrationViewController()
-        present(vc, animated: true, completion: nil)
+        vc.title = "계정 만들기"
+        present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     @objc private func didTapTermsButton() {
@@ -143,20 +170,20 @@ class LoginViewController: UIViewController {
                                   height: view.height)
         configureHeaderView()
         
-        userNameEmailField.frame = CGRect(x: 25,
+        userNameEmailField.frame = CGRect(x: view.width/2 - (view.width - 90)/2,
                                           y: view.height/3 + 10,
-                                          width: view.width - 50,
-                                          height: 52)
+                                          width: view.width - 90,
+                                          height: 48)
         
-        passwordField.frame = CGRect(x: 25,
+        passwordField.frame = CGRect(x: view.width/2 - (view.width - 90)/2,
                                      y: userNameEmailField.bottom + 10,
-                                     width: view.width - 50,
-                                     height: 52)
+                                     width: view.width - 90,
+                                     height: 48)
         
-        loginButton.frame = CGRect(x: 25,
+        loginButton.frame = CGRect(x: view.width/2 - (view.width - 90)/2,
                                    y: passwordField.bottom + 10,
-                                   width: view.width - 50,
-                                   height: 52)
+                                   width: view.width - 90,
+                                   height: 43)
         
         createAccountButton.frame = CGRect(x: 25,
                                            y: view.height - view.safeAreaInsets.bottom - 100,
@@ -210,9 +237,13 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if textField == userNameEmailField {
-//            passwordField.becomeFirstResponder()
-//        }
-//    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == userNameEmailField {
+            passwordField.becomeFirstResponder()
+        }
+        else if textField == passwordField {
+            didTapLoginButton()
+        }
+        return true
+    }
 }
