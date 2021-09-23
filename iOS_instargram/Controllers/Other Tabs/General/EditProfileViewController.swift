@@ -10,7 +10,7 @@ import UIKit
 public struct EditProfileFormModel {
     let label: String
     let placeholder: String
-    let value: String?
+    var value: String?
 }
 
 final class EditProfileViewController: UIViewController {
@@ -90,13 +90,13 @@ final class EditProfileViewController: UIViewController {
     @objc private func didTapProfilePhotoButton() {
         
     }
-    
+     
     @objc private func didTapSave() {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func didTapCancle() {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func didTapChangeProfilePicture() {
@@ -146,8 +146,8 @@ extension EditProfileViewController: UITableViewDataSource {
 }
 
 extension EditProfileViewController: FormTableViewCellDelegate {
-    func formTableViewCell(_ cell: FormTableViewCell, didUpdateField value: String?) {
+    func formTableViewCell(_ cell: FormTableViewCell, didUpdateField updateModel: EditProfileFormModel) {
         // update model
-        print("Field update to: \(value ?? "nil")")
+        print(updateModel.value ?? "nil")
     }
 }
