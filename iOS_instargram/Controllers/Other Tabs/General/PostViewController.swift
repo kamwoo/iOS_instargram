@@ -108,6 +108,7 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         case .actions(let actions):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostActionsTableViewCell.identifier,
                                                      for: indexPath) as! IGFeedPostActionsTableViewCell
+            cell.delegate = self
             return cell
         case .comments(let comments):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostGeneralTableViewCell.identifier,
@@ -116,10 +117,13 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         case .primaryContent(let post):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostTableViewCell.identifier,
                                                      for: indexPath) as! IGFeedPostTableViewCell
+            cell.configure(with: post)
             return cell
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: IGFeedPostHeaderTableViewCell.identifier,
                                                      for: indexPath) as! IGFeedPostHeaderTableViewCell
+            cell.configure(with: user)
+            cell.delegate = self
             return cell
         }
     }
@@ -140,5 +144,39 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
         case .header(_):
             return 70
         }
+    }
+}
+
+extension PostViewController: IGFeedPostHeaderTableViewCellDelegate {
+    func didTapbutton() {
+        let actionSheet = UIAlertController(title: "Post options",
+                                            message: nil,
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Report Post",
+                                            style: .destructive){ [weak self] _ in
+            self?.reportPost()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Cancle",
+                                            style: .cancel,
+                                            handler: nil))
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func reportPost(){
+        
+    }
+}
+
+extension PostViewController: IGFeedPostActionsTableViewCellDelegate {
+    func didTapLikeButtonTap() {
+        print("like")
+    }
+    
+    func didTapCommentButtonTap() {
+        print("comment")
+    }
+    
+    func didTapSendButtonTap() {
+        print("send")
     }
 }
