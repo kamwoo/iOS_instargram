@@ -15,6 +15,7 @@ struct User {
     let bio: String
     let counts: UserCount
     let joinDate: Date
+    let profilePhoto: URL
 }
 
 struct UserCount {
@@ -37,6 +38,7 @@ public struct UserPost {
     let comments: [PostComment]
     let createdDate: Date
     let taggedUsers: [String]
+    let owner: User
 }
 
 public struct PostLike {
@@ -58,6 +60,7 @@ public struct commentLike {
     let commentIdentifier: String
 }
 
-public enum UserPostType {
-    case photo, video
+public enum UserPostType: String {
+    case photo = "photo"
+    case video = "video"
 }
