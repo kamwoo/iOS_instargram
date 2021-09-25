@@ -72,7 +72,7 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBlue
+        backgroundColor = .systemBackground
         clipsToBounds = true
         addSubviews()
         addButtonActions()
@@ -143,5 +143,13 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
                                   y: 5 + buttonHeight,
                                   width: countButtonWidth*3,
                                   height: buttonHeight)
+        nameLabel.frame = CGRect(x: 5,
+                                 y: profilePhotoImageView.bottom + 10,
+                                 width: countButtonWidth,
+                                 height: photoSize/3)
+        bioLabel.frame = CGRect(x: 5,
+                                 y: nameLabel.bottom,
+                                 width: width,
+                                 height: photoSize/3)
     }
 }
